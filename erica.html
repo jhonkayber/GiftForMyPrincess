@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Erica ✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .word-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            padding: 25px 10px;
+            z-index: 100;
+            overflow: hidden;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .word-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 40px;
+        }
+
+        .rotating-word {
+            font-size: 2em;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: wordFade 3s ease-in-out infinite;
+            text-align: center;
+        }
+
+        @keyframes wordFade {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            20%,
+            80% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px 15px;
+            max-width: 900px;
+            width: 100%;
+            margin-top: 120px;
+            padding-bottom: 100px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: fadeIn 1s ease-in;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            font-style: italic;
+            animation: fadeIn 1.5s ease-in;
+            padding: 0 10px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            color: white;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .music-control:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .music-icon {
+            font-size: 1.2em;
+        }
+
+        .message-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px 20px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            min-height: 80px;
+        }
+
+        .message-box:active {
+            transform: scale(0.98);
+        }
+
+        .message-box::before {
+            content: '✨';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5em;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .message-box.revealed::before {
+            content: '💫';
+            transform: rotate(180deg);
+        }
+
+        .message-title {
+            font-size: 1.3em;
+            color: white;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .message-content {
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .message-box.revealed .message-content {
+            max-height: 200px;
+            opacity: 1;
+            margin-top: 10px;
+        }
+
+        .floating-hearts {
+            position: fixed;
+            bottom: -50px;
+            font-size: 25px;
+            animation: float 6s infinite;
+            pointer-events: none;
+            opacity: 0.7;
+            z-index: 5;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .instruction {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1em;
+            margin-top: 25px;
+            font-style: italic;
+            padding: 0 10px;
+        }
+
+        @media (min-width: 600px) {
+            .message-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1 {
+                font-size: 3.5em;
+            }
+
+            .subtitle {
+                font-size: 1.3em;
+            }
+
+            .rotating-word {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars" id="stars"></div>
+
+    <div class="word-banner">
+        <div class="word-container">
+            <div class="rotating-word" id="rotatingWord">Beautiful</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Erica ✨</h1>
+        <p class="subtitle">A little gift from Erkan</p>
+        <p class="subtitle" style="margin-top: 10px;">Click on each box to discover something special</p>
+
+        <div class="message-grid">
+            <div class="message-box" onclick="toggleReveal(this)">
+                <div class="message-title">Your Smile</div>
+                <div class="message-content">Your smile is absolutely beautiful, it lights up everything around you
+                </div>
+            </div>
+
+            <div class="message-box" onclick="toggleReveal(this)">
+                <div class="message-title">Your Style</div>
+                <div class="message-content">Your style is so unique and elegant, you always look amazing</div>
+            </div>
+
+            <div class="message-box" onclick="toggleReveal(this)">
+                <div class="message-title">Your Energy</div>
+                <div class="message-content">Being around you feels incredible, spending time with you is always special
+                </div>
+            </div>
+
+            <div class="message-box" onclick="toggleReveal(this)">
+                <div class="message-title">Your Conversation</div>
+                <div class="message-content">Talking to you is so fun, every conversation we have feels meaningful</div>
+            </div>
+
+            <div class="message-box" onclick="toggleReveal(this)">
+                <div class="message-title">Your Eyes</div>
+                <div class="message-content">Your eyes are so captivating, there's something really special about them
+                </div>
+            </div>
+
+            <div class="message-box" onclick="toggleReveal(this)">
+                <div class="message-title">Your Personality</div>
+                <div class="message-content">You're such a warm and genuine person, it makes you truly special</div>
+            </div>
+
+            <div class="message-box" onclick="toggleReveal(this)">
+                <div class="message-title">Your Presence</div>
+                <div class="message-content">I'm really glad I met you, you've brought something beautiful into my life
+                </div>
+            </div>
+
+            <div class="message-box" onclick="toggleReveal(this)">
+                <div class="message-title">Your Authenticity</div>
+                <div class="message-content">You're not afraid to be yourself, and that makes you incredibly attractive
+                </div>
+            </div>
+        </div>
+
+        <p class="instruction">✨ Tap each box to reveal or hide the messages ✨</p>
+    </div>
+
+    <div class="music-control" onclick="toggleMusic()">
+        <span class="music-icon" id="musicIcon">🎵</span>
+        <span id="musicText">Play</span>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Yıldızlar oluştur
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Dönen kelimeler
+        const words = [
+            'Beautiful', 'Amazing', 'Wonderful', 'Gorgeous',
+            'Stunning', 'Radiant', 'Captivating', 'Enchanting',
+            'Lovely', 'Charming', 'Elegant', 'Graceful',
+            'Brilliant', 'Delightful', 'Mesmerizing', 'Fantastic'
+        ];
+
+        let currentWordIndex = 0;
+        const wordElement = document.getElementById('rotatingWord');
+
+        function changeWord() {
+            currentWordIndex = (currentWordIndex + 1) % words.length;
+            wordElement.style.animation = 'none';
+            setTimeout(() => {
+                wordElement.textContent = words[currentWordIndex];
+                wordElement.style.animation = 'wordFade 3s ease-in-out';
+            }, 50);
+        }
+
+        setInterval(changeWord, 3000);
+
+        // Müzik kontrolü
+        let musicPlaying = false;
+        const music = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicText = document.getElementById('musicText');
+
+        music.volume = 0.3;
+
+        // Sayfa yüklenince müziği otomatik başlat
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                music.play().then(() => {
+                    musicPlaying = true;
+                    musicIcon.textContent = '🔊';
+                    musicText.textContent = 'Pause';
+                }).catch(e => {
+                    console.log('Autoplay blocked, user needs to interact first');
+                });
+            }, 500);
+        });
+
+        // İlk tıklamada müziği başlat (eğer otomatik başlamadıysa)
+        document.body.addEventListener('click', function startMusic() {
+            if (!musicPlaying) {
+                music.play().then(() => {
+                    musicPlaying = true;
+                    musicIcon.textContent = '🔊';
+                    musicText.textContent = 'Pause';
+                }).catch(e => console.log('Audio play failed'));
+            }
+        }, { once: true });
+
+        function toggleMusic() {
+            if (musicPlaying) {
+                music.pause();
+                musicIcon.textContent = '🎵';
+                musicText.textContent = 'Play';
+                musicPlaying = false;
+            } else {
+                music.play().catch(e => console.log('Audio play failed:', e));
+                musicIcon.textContent = '🔊';
+                musicText.textContent = 'Pause';
+                musicPlaying = true;
+            }
+        }
+
+        // Mesaj kutusu aç/kapat fonksiyonu
+        function toggleReveal(box) {
+            if (box.classList.contains('revealed')) {
+                box.classList.remove('revealed');
+            } else {
+                box.classList.add('revealed');
+                createHeart();
+            }
+        }
+
+        // Kalp animasyonu
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-hearts';
+            heart.textContent = '💖';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        // Rastgele kalpler
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                createHeart();
+            }
+        }, 2000);
+    </script>
+</body>
+
+</html>
